@@ -15,7 +15,7 @@ functions:
     events:
       - httpApi:
           path: /signup
-          method: get
+          method: post
     
   login:
     handler: app/handler.login
@@ -42,8 +42,13 @@ functions:
           method: put
       - httpApi:
           path: /user
-          method: put
+          method: post
 
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
+  - serverless-dotenv-plugin
+
+custom:
+  serverless-offline:
+    httpPort: 4444

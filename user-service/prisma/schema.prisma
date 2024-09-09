@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+  INSTITUTION
+}
+
+model User {
+  id          String       @id @default(uuid())
+  email       String       @unique
+  password    String
+  phone       String
+  role        Role         @default(USER)
+  permissions Permission[] @relation("UserPermissions")
+  profile     UserProfile?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?
+}
+
+model Permission {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  user        User[]    @relation("UserPermissions")
+}
+
+model UserProfile {
+  id        String    @id @default(uuid())
+  userId    String    @unique
+  user      User      @relation(fields: [userId], references: [id])
+  addresses Address[] @relation("UserProfileAddresses")
+  fullName  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+
+  Address Address[]
+}
+
+model Address {
+  id            String      @id @default(uuid())
+  postalCode    String
+  address       String
+  number        String
+  complement    String
+  neighborhood  String
+  city          String
+  state         String
+  userProfile   UserProfile @relation(fields: [userProfileId], references: [id]) // Relacionamento com UserProfile
+  userProfileId String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime?
+
+  UserProfile UserProfile[] @relation("UserProfileAddresses")
+}
