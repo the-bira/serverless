@@ -1,3 +1,3 @@
 export interface IPasswordEncryptor {
-  encrypt(password: string): Promise<string>;
+  encrypt(password: string, salt: string): Promise<string>;
 }

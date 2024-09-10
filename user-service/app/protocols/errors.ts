@@ -24,3 +24,12 @@ export const serverError = (): HttpResponse => {
     }),
   };
 }
+
+export const pageNotFound = (): HttpResponse => {
+  return {
+    statusCode: HttpStatusCode.notFound,
+    body: JSON.stringify({
+      error: 'Requested method not suported',
+    }),
+  };
+}

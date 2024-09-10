@@ -1,4 +1,4 @@
-import { RegisterUserDTO } from '../../dtos/register-user.dto';
+import { RegisterUserDTO } from '../../dtos/user/register-user.dto';
 import { Role } from '../../models/IRole';
 import { User } from '../../models/IUser';
 import { IUserRepository } from '../user.repo';
@@ -17,6 +17,26 @@ export class PrismaUserRepository implements IUserRepository {
         },
       });
 
+      const mappedUser = this.mapUser(user);
+      
+      delete mappedUser.password;
+      delete mappedUser.salt;
+
+      return mappedUser;
+
+    });
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.prismaService.execute(async (prisma) => {
+      const user = await prisma.user.findUnique({
+        where: { email },
+      });
+
+      if (!user) {
+        return null;
+      }
+
       return this.mapUser(user);
     });
   }
@@ -26,6 +46,8 @@ export class PrismaUserRepository implements IUserRepository {
       id: user.id,
       email: user.email,
       phone: user.phone,
+      password: user.password,
+      salt: user.salt,
       role: user.role as Role,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,

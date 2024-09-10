@@ -19,4 +19,6 @@ export class RegisterUserDTO {
   @IsNumberString()
   @IsNotEmpty()
   phone: string;
+
+  salt: string;
 }

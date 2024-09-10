@@ -5,6 +5,7 @@ export interface User {
   id: string;
   email: string;
   password?: string;
+  salt?: string;
   phone: string;
   role: Role;
   permissions?: Permission[];

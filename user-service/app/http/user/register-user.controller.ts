@@ -1,4 +1,4 @@
-import { RegisterUserDTO } from '../../dtos/register-user.dto';
+import { RegisterUserDTO } from '../../dtos/user/register-user.dto';
 import { User } from '../../models/IUser';
 import { badRequest, serverError } from '../../protocols/errors';
 import { HttpResponse } from '../../protocols/http';
@@ -13,11 +13,8 @@ export class RegisterUserController implements IController {
 
   async handle(registerUserData: RegisterUserDTO) : Promise<HttpResponse> {
 
-    console.log('registerUserData controller', registerUserData instanceof RegisterUserDTO);
-
     try{
       const errors: ValidationError[] = await validate(registerUserData);
-      console.log('errors', errors);
 
       if (errors.length > 0 ) {
         return badRequest(errors);
@@ -35,8 +32,6 @@ export class RegisterUserController implements IController {
       }
 
       const user: User = await this.registerUserUseCase.execute(registerUserData);
-
-      console.log('user', user);
 
       return {
         statusCode: HttpStatusCode.ok,
