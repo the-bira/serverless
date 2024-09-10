@@ -14,9 +14,9 @@ export class LoginUseCase {
 
     if (!user) {
       throw new Error('User not found');
-    }
-
-    if (user.password && user.salt) await validatePassword(dto.password, user.password, user.salt);
+    } else if (user.password && user.salt) 
+      await validatePassword(dto.password, user.password, user.salt);
+    else throw new Error('User not found');
 
     return 'token';
   }
