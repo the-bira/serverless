@@ -2,13 +2,13 @@
   "name": "user-service",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "dependencies": {
     "@prisma/client": "^5.19.1",
     "aws-lambda": "^1.0.7",
     "bcrypt": "^5.1.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
     "resend": "^4.0.0",
     "serverless-http": "^3.2.0",
     "user-service": "file:"

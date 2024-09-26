@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2021",
-    "module": "commonjs",
+    "module": "ESNext",
     "outDir": "./dist",
     "rootDir": "./app",
     "strict": true,
@@ -12,7 +12,10 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "strictPropertyInitialization": false
-
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
   "include": ["app/**/*.ts"],
   "exclude": ["node_modules"]

@@ -42,6 +42,7 @@ export const profile = (event: APIGatewayProxyEventV2) => {
   const httpMethod = event.requestContext.http.method;
 
   if (httpMethod === 'GET') {
+    console.log("bira lindo")
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Hello World' }),
