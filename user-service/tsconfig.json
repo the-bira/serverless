@@ -1,22 +1,26 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "module": "ESNext",
-    "outDir": "./dist",
-    "rootDir": "./app",
-    "strict": true,
+    "target": "es2017", // or "es2020", "esnext", etc.
+    "lib": ["es2015"], // or ["es2020"], ["esnext"]
+    "module": "commonjs",
+    "outDir": ".build",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "strict": false,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
     "skipLibCheck": true,
-    "strictPropertyInitialization": false
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"],
+    "typeRoots": [
+      "../../layers/nodejs/node_modules/@types",
+      "../../layers/utility/",
+      "../../layers/utility/node_modules/",
+      "../../layers/utility/dist/types"
+    ],
+    "paths": {
+      "utility/*": ["../../layers/utility/src/*"]
+    }
   },
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  },
-  "include": ["app/**/*.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

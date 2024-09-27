@@ -1,8 +1,5 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: aimbere
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: user-service
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: user-service
 
 frameworkVersion: '4'
@@ -12,6 +9,7 @@ provider:
   runtime: nodejs20.x
 
 package:
+  individually: true
   patterns:
     - '!node_modules/.prisma/client/libquery_engine-*'
     - 'node_modules/.prisma/client/libquery_engine-linux-arm64-*'
@@ -20,55 +18,44 @@ package:
 
 build:
   esbuild:
-    # Enable or Disable bundling the function code and dependencies. (Default: true)
     bundle: true
-    # Enable minifying function code. (Default: false)
     minify: false
-    # NPM packages to not be bundled. Glob patterns are supported here.
     external:
       - '@aws-sdk/client-s3'
-    # NPM packages to not be bundled, as well as not included in node_modules
-    # in the zip file uploaded to Lambda. By default this will be set to aws-sdk
-    # if the runtime is set to nodejs16.x or lower or set to @aws-sdk/* if set to nodejs18.x or higher.
-    # Glob patterns are supported here.
+      - 'dotenv'
+      - 'jsonwebtoken'
+      - '@prisma/client'
+
+
     exclude:
       - '@aws-sdk/*'
-      - '!@aws-sdk/client-bedrock-runtime'
-    # The packages config, this can be set to override the behavior of external
-    # If this is set then all dependencies will be treated as external and not bundled.
     packages: external
-    # By default Framework will attempt to build and package all functions concurrently.
-    # This property can bet set to a different number if you wish to limit the
-    # concurrency of those operations.
     buildConcurrency: 3
-    # Enable or configure sourcemaps, can be set to true or to an object with further configuration.
     sourcemap:
-      # The sourcemap type to use, options are (inline, linked, or external)
       type: linked
-      # Whether to set the NODE_OPTIONS on functions to enable sourcemaps on Lambda
       setNodeOptions: true
 
 functions:
-  signup:
-    handler: app/handler.signup
-    events:
-      - httpApi:
-          path: /signup
-          method: post
+  # signup:
+  #   handler: app/handler.signup
+  #   events:
+  #     - httpApi:
+  #         path: /signup
+  #         method: post
     
-  login:
-    handler: app/handler.login
-    events:
-      - httpApi: 
-          path: /login
-          method: post
+  # login:
+  #   handler: app/handler.login
+  #   events:
+  #     - httpApi: 
+  #         path: /login
+  #         method: post
   
-  verify:
-    handler: app/handler.verify
-    events:
-      - httpApi: 
-          path: /verify
-          method: post
+  # verify:
+  #   handler: app/handler.verify
+  #   events:
+  #     - httpApi: 
+  #         path: /verify
+  #         method: post
   
   profile:
     handler: app/handler.profile
@@ -76,9 +63,9 @@ functions:
       - httpApi: 
           path: /user
           method: get
-      - httpApi:
-          path: /user
-          method: put
-      - httpApi:
-          path: /user
-          method: post
+      # - httpApi:
+      #     path: /user
+      #     method: put
+      # - httpApi:
+      #     path: /user
+      #     method: post
