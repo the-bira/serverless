@@ -19,12 +19,14 @@ package:
 build:
   esbuild:
     bundle: true
-    minify: false
+    minify: true
     external:
       - '@aws-sdk/client-s3'
       - 'dotenv'
       - 'jsonwebtoken'
+      - 'class-validator'
       - '@prisma/client'
+      - 'resend'
 
 
     exclude:
@@ -36,26 +38,26 @@ build:
       setNodeOptions: true
 
 functions:
-  # signup:
-  #   handler: app/handler.signup
-  #   events:
-  #     - httpApi:
-  #         path: /signup
-  #         method: post
+  signup:
+    handler: app/handler.signup
+    events:
+      - httpApi:
+          path: /signup
+          method: post
     
-  # login:
-  #   handler: app/handler.login
-  #   events:
-  #     - httpApi: 
-  #         path: /login
-  #         method: post
+  login:
+    handler: app/handler.login
+    events:
+      - httpApi: 
+          path: /login
+          method: post
   
-  # verify:
-  #   handler: app/handler.verify
-  #   events:
-  #     - httpApi: 
-  #         path: /verify
-  #         method: post
+  verify:
+    handler: app/handler.verify
+    events:
+      - httpApi: 
+          path: /verify
+          method: post
   
   profile:
     handler: app/handler.profile
@@ -63,9 +65,9 @@ functions:
       - httpApi: 
           path: /user
           method: get
-      # - httpApi:
-      #     path: /user
-      #     method: put
-      # - httpApi:
-      #     path: /user
-      #     method: post
+      - httpApi:
+          path: /user
+          method: put
+      - httpApi:
+          path: /user
+          method: post

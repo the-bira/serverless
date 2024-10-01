@@ -133,5 +133,5 @@ dist
 user-service/node_modules
 user-service/.build
 user-service/data
-user-service/.env
+#user-service/.env
 user-service/.serverless
