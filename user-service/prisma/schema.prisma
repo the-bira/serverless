@@ -22,12 +22,11 @@ enum Role {
 model User {
   id          String       @id @default(uuid())
   email       String       @unique
-  password    String
-  salt        String
   phone       String
   role        Role         @default(USER)
   permissions Permission[] @relation("UserPermissions")
   profile     UserProfile?
+  cognitoId   String       @unique
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?
 }
