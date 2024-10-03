@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength, IsNumberString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+  IsNumberString,
+} from "class-validator";
 
 export class RegisterUserDTO {
   @IsString()
@@ -9,16 +15,16 @@ export class RegisterUserDTO {
   @IsString()
   @IsNotEmpty()
   @MinLength(8)
-  password: string;
+  password?: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(8)
-  confirmPassword: string;
+  confirmPassword?: string;
 
   @IsNumberString()
   @IsNotEmpty()
   phone: string;
 
-  salt: string;
+  cognitoId: string;
 }
